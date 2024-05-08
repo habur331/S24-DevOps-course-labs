@@ -15,6 +15,11 @@ COPY --from=dependencies /usr/local /usr/local
 
 COPY app.py ./
 COPY templates ./templates
+COPY services ./services
+
+ENV VISIT_COUNTER_PATH='/etc/app_python/tmp/visits.txt'
+RUN mkdir -p /etc/app_python/tmp  \
+    && chgrp -R appuser /etc/app_python && chmod g+rw -R /etc/app_python
 
 EXPOSE 5000
 USER appuser
